@@ -2,6 +2,7 @@
   (:require [clojure.java.jdbc :as sql]
             [clj-time.core :as time]
             [clj-time.local :as local]
+            [returnev.models.shared_connection :as shared-conn]
             [clj-time.coerce :as coerce]))
 
 (defmacro connected [op]
@@ -11,7 +12,7 @@
 (defn day-ago [] (time/minus (time/from-now (time/secs 0)) (time/hours 24)))
 
 (defn price-for-card-today [card-name]
-  (sql/with-connection (System/getenv "DATABASE_URL")
+  (sql/with-connection (shared-conn/db-connection)
    (sql/with-query-results results
      ["select price from card_prices where sanitized_card_name = ? and created_at > ?"
       card-name

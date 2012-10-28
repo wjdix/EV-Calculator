@@ -7,6 +7,7 @@
                  [enlive "1.0.0"]
                  [clj-http "0.5.6"]
                  [clj-time "0.4.4"]
+                 [c3p0/c3p0 "0.9.1.2"]
                  [ring/ring-jetty-adapter "0.3.10"]
                  [ring/ring-devel "1.1.0"]
                  [compojure "0.6.4"]
