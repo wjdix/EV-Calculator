@@ -6,6 +6,8 @@
                (.setDriverClass "org.postgresql.Driver")
                (.setJdbcUrl (System/getenv "DATABASE_URL"))
                (.setMaxIdleTimeExcessConnections (* 30 60))
+               (.setMinPoolSize 5)
+               (.setMaxPoolSize 10)
                (.setMaxIdleTime (* 3 60 60)))]
     {:datasource cpds}))
 
