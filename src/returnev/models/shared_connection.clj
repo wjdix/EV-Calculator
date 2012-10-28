@@ -5,6 +5,8 @@
   (let [cpds (doto (ComboPooledDataSource.)
                (.setDriverClass "org.postgresql.Driver")
                (.setJdbcUrl (System/getenv "DATABASE_URL"))
+               (.setUser (System/getenv "DATABASE_USER"))
+               (.setPassword (System/getenv "DATABASE_PASSWORD"))
                (.setMaxIdleTimeExcessConnections (* 30 60))
                (.setMinPoolSize 5)
                (.setMaxPoolSize 10)
