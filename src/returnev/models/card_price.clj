@@ -3,13 +3,16 @@
             [clj-time.core :as time]
             [clj-time.local :as local]
             [returnev.models.shared_connection :as shared-conn]
-            [clj-time.coerce :as coerce]))
+            [clj-time.format :as format]))
 
 (defmacro connected [op]
   `(sql/with-connection (shared-conn/db-connection)
      ~op))
 
-(defn today [] (coerce/to-timestamp (coerce/to-date (time/from-now (time/secs 0)))))
+(defn today []
+  (format/unparse
+   (format/formatter "yyyy-MM-dd")
+   (time/from-now (time/secs 0))))
 
 (defn price-for-card-today [card-name]
   (connected
