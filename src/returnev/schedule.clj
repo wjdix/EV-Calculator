@@ -1,11 +1,12 @@
 (ns returnev.schedule
   (:use [clojurewerkz.quartzite.jobs :only [defjob]]
-        [clojurewerkz.quartzite.jobs :as j]
-        [clojurewerkz.quartzite.triggers :as t]
+        [clojurewerkz.quartzite.schedule.cron :only [schedule cron-schedule]]
         [clojure.tools.logging :only [info]]
         [returnev.ev_calculator :as calc]
         [returnev.card_list :as card-list])
-(:require [clojurewerkz.quartzite.scheduler :as qs]))
+  (:require [clojurewerkz.quartzite.scheduler :as qs]
+            [clojurewerkz.quartzite.jobs :as j]
+            [clojurewerkz.quartzite.triggers :as t]))
 
 (defjob FetchPrices []
   (info "Fetching prices")
