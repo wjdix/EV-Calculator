@@ -9,14 +9,14 @@
   `(sql/with-connection (shared-conn/db-connection)
      ~op))
 
-(defn day-ago [] (coerce/to-date (time/minus (time/from-now (time/secs 0)) (time/hours 24))))
+(defn today [] (coerce/to-timestamp (coerce/to-date (time/from-now (time/secs 0)))))
 
 (defn price-for-card-today [card-name]
   (connected
    (sql/with-query-results results
      ["select price from card_prices where sanitized_card_name = ? and created_at::date = ?"
       card-name
-      (coerce/to-timestamp (day-ago))]
+      (today)]
      (:price (first results)))))
 
 (defn record-price-for-today [card-name price]
