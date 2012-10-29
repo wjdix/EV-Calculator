@@ -10,9 +10,7 @@
      ~op))
 
 (defn today []
-  (format/unparse
-   (format/formatter "yyyy-MM-dd")
-   (time/from-now (time/secs 0))))
+  (coerce/to-date (time/from-now (time/secs 0))))
 
 (defn price-for-card-today [card-name]
   (connected
