@@ -1,6 +1,6 @@
 (ns returnev.card_list
-  (:use [[net.cgrand.enlive-html :as html]
-         [returnev.group_by_two :as group]]))
+  (:use [net.cgrand.enlive-html :as html]
+        [returnev.group_by_two :as group]))
 
 (def rtr-url
   (java.net.URL.

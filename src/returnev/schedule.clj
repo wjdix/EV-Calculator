@@ -1,17 +1,17 @@
-(ns returnev.fetch_prices
-  (:require [clojurewerkz.quartzite.scheduler :as qs])
-  (:use [[clojurewerkz.quartzite.jobs :only [defjob]]
-         [clojurewerkz.quartzite.jobs :as j]
-         [clojurewerkz.quartzite.triggers :as t]
-         [clojure.tools.logging :only [info]]
-         [returnev.ev_calculator :as calc]
-         [returnev.card_list :as card-list]]))
+(ns returnev.schedule
+  (:use [clojurewerkz.quartzite.jobs :only [defjob]]
+        [clojurewerkz.quartzite.jobs :as j]
+        [clojurewerkz.quartzite.triggers :as t]
+        [clojure.tools.logging :only [info]]
+        [returnev.ev_calculator :as calc]
+        [returnev.card_list :as card-list])
+(:require [clojurewerkz.quartzite.scheduler :as qs]))
 
 (defjob FetchPrices []
   (info "Fetching prices")
   (calc/ev-for-pack (card-list/rtr-cards)))
 
-(defn start-schedule []
+(defn start []
   (qs/initialize)
   (qs/start)
   (let [job (j/build

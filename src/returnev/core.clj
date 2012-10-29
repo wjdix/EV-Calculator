@@ -1,6 +1,7 @@
 (ns returnev.core
   (:use [returnev.ev_calculator :as calc]
         [returnev.card_list :as card-list]
+        [returnev.schedule :as schedule]
         [compojure.core :only [defroutes GET]]
         [ring.middleware.stacktrace :as st])
   (:require [ring.adapter.jetty :as ring]))
@@ -17,5 +18,6 @@
   (ring/run-jetty #'app {:port (or port 8080) :join? false}))
 
 (defn -main []
+  (schedule/start)
   (let [port (Integer. (System/getenv "PORT"))]
     (start port)))
