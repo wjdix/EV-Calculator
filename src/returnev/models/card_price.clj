@@ -3,7 +3,7 @@
             [clj-time.core :as time]
             [clj-time.local :as local]
             [returnev.models.shared_connection :as shared-conn]
-            [clj-time.format :as format]))
+            [clj-time.coerce :as coerce]))
 
 (defmacro connected [op]
   `(sql/with-connection (shared-conn/db-connection)
