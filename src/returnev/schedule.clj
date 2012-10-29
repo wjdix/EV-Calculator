@@ -1,6 +1,6 @@
 (ns returnev.schedule
   (:use [clojurewerkz.quartzite.jobs :only [defjob]]
-        [clojurewerkz.quartzite.schedule.cron :only [schedule cron-schedule]]
+        [clojurewerkz.quartzite.schedule.calendar-interval :only [schedule with-interval-in-days]]
         [clojure.tools.logging :only [info]]
         [returnev.ev_calculator :as calc]
         [returnev.card_list :as card-list])
@@ -8,9 +8,9 @@
             [clojurewerkz.quartzite.jobs :as j]
             [clojurewerkz.quartzite.triggers :as t]))
 
-(defjob FetchPrices []
+(defjob FetchPrices [ctx]
   (info "Fetching prices")
-  (calc/ev-for-pack (card-list/rtr-cards)))
+  (calc/ev-for-pack (card-list/all-rtr-cards)))
 
 (defn start []
   (qs/initialize)
@@ -22,5 +22,5 @@
                  (t/with-identity (t/key "daily.1"))
                  (t/start-now)
                  (t/with-schedule (schedule
-                                   (cron-schedule "0 0 * * *"))))]
+                                   (with-interval-in-days 1))))]
     (qs/schedule job trigger)))
