@@ -18,6 +18,6 @@
   (ring/run-jetty #'app {:port (or port 8080) :join? false}))
 
 (defn -main []
-  (schedule/start)
+  (schedule/start-schedule)
   (let [port (Integer. (System/getenv "PORT"))]
     (start port)))

@@ -12,7 +12,7 @@
   (info "Fetching prices")
   (calc/ev-for-pack (card-list/all-rtr-cards)))
 
-(defn start []
+(defn start-schedule []
   (qs/initialize)
   (qs/start)
   (let [job (j/build
